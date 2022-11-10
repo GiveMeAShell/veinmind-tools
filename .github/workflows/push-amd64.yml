@@ -39,8 +39,8 @@ jobs:
           platforms: |
             linux/amd64
           tags: |
-            veinmind/${{ inputs.file }}:latest
-            veinmind/${{ inputs.file }}:${{github.ref_name}}
+            dvkunion/${{ inputs.file }}:latest
+            dvkunion/${{ inputs.file }}:${{github.ref_name}}
           context: ${{ inputs.path }}
           build-args: |
             CI_GOOS=${{inputs.CI_GOOS}}
