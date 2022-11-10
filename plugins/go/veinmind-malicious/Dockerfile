@@ -14,4 +14,3 @@ COPY dockerfiles/clamd.sh .
 ADD veinmind-malicious_${CI_GOOS}_${CI_GOARCH} .
 RUN echo "#!/bin/bash\n\n/bin/bash clamd.sh\n\n./veinmind-malicious_${CI_GOOS}_${CI_GOARCH} \$*" > /tool/entrypoint.sh && chmod +x /tool/entrypoint.sh && chmod +x /tool/veinmind-malicious_${CI_GOOS}_${CI_GOARCH}
 ENTRYPOINT ["/tool/entrypoint.sh"]
-
