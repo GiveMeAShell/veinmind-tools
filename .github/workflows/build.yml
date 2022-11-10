@@ -21,7 +21,7 @@ on:
         default: ""
 
 jobs:
-  build:
+  base-build:
     runs-on: ubuntu-20.04
     container:
       image: veinmind/go1.18:1.3.1-stretch
@@ -31,10 +31,8 @@ jobs:
       TAGS: ${{inputs.TAGS}}
     steps:
       - uses: actions/checkout@v3
-      # weak pass static build needs libssl-dev
-      - run: apt-get install libssl-dev
       - run: cd ${{inputs.path}} && /bin/bash -x script/build_${{inputs.CI_GOARCH}}.sh
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: ${{inputs.file}}-${{inputs.CI_GOARCH}}
           path: ${{inputs.path}}/artifacts/${{inputs.CI_GOOS}}-${{inputs.CI_GOARCH}}/${{inputs.file}}_${{inputs.CI_GOOS}}_${{inputs.CI_GOARCH}}
