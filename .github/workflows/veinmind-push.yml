@@ -36,21 +36,15 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   push-veinmind-malicious:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: veinmind-malicious-amd64
-      - run: mv veinmind-malicious_${{env.CI_GOOS}}_${{env.CI_GOARCH}} ./plugins/go/veinmind-malicious
-      - uses: ./.github/workflows/push-amd64.yml
-        with:
-          path: ./plugins/go/veinmind-malicious
-          file: veinmind-malicious
-          CI_GOOS: linux
-          CI_GOARCH: amd64
-        secrets:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    uses: ./.github/workflows/push-amd64.yml
+    with:
+      path: ./plugins/go/veinmind-malicious
+      file: veinmind-malicious
+      CI_GOOS: linux
+      CI_GOARCH: amd64
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   push-veinmind-weakpass:
     uses: ./.github/workflows/push-amd64.yml
