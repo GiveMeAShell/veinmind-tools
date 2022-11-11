@@ -1,11 +1,6 @@
 name: veinmind-tools-push
 on:
   workflow_call:
-    secrets:
-      DOCKERHUB_USERNAME:
-        required: true
-      DOCKERHUB_TOKEN:
-        required: true
 
 jobs:
   push-veinmind-backdoor:
@@ -13,44 +8,30 @@ jobs:
     with:
       path: ./plugins/python/veinmind-backdoor
       file: veinmind-backdoor
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-sensitive:
     uses: ./.github/workflows/push.yml
     with:
       path: ./plugins/python/veinmind-sensitive
       file: veinmind-sensitive
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-history:
     uses: ./.github/workflows/push.yml
     with:
       path: ./plugins/python/veinmind-history
       file: veinmind-history
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-malicious:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: veinmind-malicious-amd64
-      - run: mv veinmind-malicious_${{env.CI_GOOS}}_${{env.CI_GOARCH}} ./plugins/go/veinmind-malicious
-      - uses: ./.github/workflows/push-amd64.yml
-        with:
-          path: ./plugins/go/veinmind-malicious
-          file: veinmind-malicious
-          CI_GOOS: linux
-          CI_GOARCH: amd64
-        secrets:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    uses: ./.github/workflows/push-amd64.yml
+    with:
+      path: ./plugins/go/veinmind-malicious
+      file: veinmind-malicious
+      CI_GOOS: linux
+      CI_GOARCH: amd64
+    secrets: inherit
 
   push-veinmind-weakpass:
     uses: ./.github/workflows/push-amd64.yml
@@ -59,9 +40,7 @@ jobs:
       file: veinmind-weakpass
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-asset:
     uses: ./.github/workflows/push-amd64.yml
@@ -70,9 +49,7 @@ jobs:
       file: veinmind-asset
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-webshell:
     uses: ./.github/workflows/push-amd64.yml
@@ -81,9 +58,7 @@ jobs:
       file: veinmind-webshell
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-unsafe-mount:
     uses: ./.github/workflows/push-amd64.yml
@@ -92,9 +67,7 @@ jobs:
       file: veinmind-unsafe-mount
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-log4j2:
     uses: ./.github/workflows/push-amd64.yml
@@ -103,9 +76,7 @@ jobs:
       file: veinmind-log4j2
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-iac:
     uses: ./.github/workflows/push-amd64.yml
@@ -114,9 +85,7 @@ jobs:
       file: veinmind-iac
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit
 
   push-veinmind-runner:
     uses: ./.github/workflows/push-amd64.yml
@@ -126,6 +95,4 @@ jobs:
       file: veinmind-runner
       CI_GOOS: linux
       CI_GOARCH: amd64
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN:  ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit

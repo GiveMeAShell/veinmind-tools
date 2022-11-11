@@ -1,4 +1,4 @@
-name: package python plugins
+name: base-package
 on:
   workflow_call:
     inputs:

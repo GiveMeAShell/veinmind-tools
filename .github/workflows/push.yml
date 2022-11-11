@@ -14,11 +14,6 @@ on:
         type: string
       CI_GOARCH:
         type: string
-    secrets:
-      DOCKERHUB_USERNAME:
-        required: true
-      DOCKERHUB_TOKEN:
-        required: true
 
 jobs:
   base-push:

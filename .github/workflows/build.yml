@@ -1,4 +1,4 @@
-name: build go plugins
+name: base-build
 on:
   workflow_call:
     inputs:
